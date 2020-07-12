@@ -20,13 +20,19 @@ function play()
 	elif [[ $option -eq $snake ]]
 	then
 		currentPosition=$(( $currentPosition-$rollDie ))
+	elif [[ $currentPosition -lt 0 ]]
+	then
+		currentPosition=$startPosition
 	else
 		currentPosition=$currentPosition
-		exit
+		#exit
 	fi
 echo "current position is:"$currentPosition
 
 }
 
-play
+while [[ $currentPosition -le $lastPosition ]]
+do
+        play
+done
 
