@@ -7,7 +7,7 @@ ladder=1
 snake=2
 noplay=3
 required=0
-
+dieCount=0
 function ladder()
 {
 
@@ -56,6 +56,7 @@ function start()
 {
 	while [[ $currentPosition -lt $lastPosition ]]
 	do
+		((dieCount++))
 		rollDie=$((RANDOM%6+1))
         	echo "Die number is:" $rollDie
        		play
@@ -63,3 +64,4 @@ function start()
 }
 start
 echo "You won the game"
+echo "The number of times die roll is:" $dieCount
