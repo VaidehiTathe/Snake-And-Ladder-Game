@@ -2,7 +2,7 @@
 echo "Welcome To Snake And Ladder Game"
 startPosition=0
 currentPosition=0
-lastPosition=100
+lastPosition=5
 ladder=1
 snake=2
 noplay=3
@@ -22,7 +22,7 @@ function ladder()
 }
 function snake()
 {
-	if [[ $currentPosition -lt 0 ]]
+	if [[ $currentPosition -le 0 ]] #lt
         then
                currentPosition=$startPosition
 	else
@@ -46,7 +46,7 @@ function play()
 			snake
 			;;
 		$noplay)
-			noplay
+#			noplay
 	esac
 }
 
