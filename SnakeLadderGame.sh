@@ -18,7 +18,7 @@ function ladder()
 		then
 			  currentPosition=`expr $(($currentPosition + $rollDie))`
 		fi
-		echo "Current position for ladder is:" $currentPosition
+		echo "Current position for player $1 for ladder is:" $currentPosition
 		start
 }
 function snake()
@@ -63,9 +63,13 @@ function start()
 	do
 
 		((dieCount++))
-                rollDie=$((RANDOM%6+1))
-                echo "The die num is:" $rollDie
-		play
+		for ((i=1; i<=2; i++))
+		do
+			echo "player[$i] is playing"
+                	rollDie=$((RANDOM%6+1))
+                	echo "The die num is:" $rollDie
+			play i
+		done
 	done
 }
 start
