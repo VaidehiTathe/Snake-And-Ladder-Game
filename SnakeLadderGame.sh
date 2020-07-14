@@ -1,51 +1,50 @@
 #!/bin/bash +x
 echo "Welcome To Snake And Ladder Game"
-startPosition=0
+STARTPOSITION=0
 currentPosition=0
-lastPosition=100
-ladder=1
-snake=2
-noplay=3
+LASTPOSITION=10
+LADDER=1
+SNAKE=2
+NOPLAY=3
 required=0
 dieCount=0
+chanceForPlayer=1
 function ladder()
 {
-
-	required=$(($lastPosition-$currentPosition))
-	echo "required number is:"$required
-	if [[ $required -ge $rollDie ]] 
-	then
-		  currentPosition=`expr $(($currentPosition + $rollDie))`
-	fi
-	echo "current position for ladder is:"$currentPosition
+	
+		required=$(($LASTPOSITION-$currentPosition))
+		if [[ $required -ge $rollDie ]] 
+		then
+			  currentPosition=`expr $(($currentPosition + $rollDie))`
+		fi
 
 }
 function snake()
 {
-	if [[ $currentPosition -lt 0 ]]
-        then
-               currentPosition=$startPosition
-	else
-        	currentPosition=`expr $(($currentPosition - $rollDie))`
-		echo "current position for snake is:"$currentPosition
-	fi
+
+		if [[ $((currentPosition-$rollDie)) -le $STARTPOSITION ]]
+        	then
+               		currentPosition=$STARTPOSITION
+		else
+        		currentPosition=`expr $(($currentPosition - $rollDie))`
+		fi
+	
 }
 function noplay()
 {
 	currentPosition=$currentPosition
-        echo "current position for noplay is:"$currentPosition
 }
 function play()
 {
 	option=$((RANDOM%3+1))
 	case $option in
-		$ladder)
+		$LADDER)
 			ladder
 			;;
-		$snake)
+		$SNAKE)
 			snake
 			;;
-		$noplay)
+		$NOPLAY)
 			noplay
 	esac
 }
@@ -54,14 +53,34 @@ function play()
 
 function start()
 {
-	while [[ $currentPosition -lt $lastPosition ]]
+	while [[ $currentPosition -lt $LASTPOSITION ]]
 	do
+
 		((dieCount++))
-		rollDie=$((RANDOM%6+1))
-        	echo "Die number is:" $rollDie
-       		play
+		if [[ $chanceForPlayer -eq 1 ]]
+                then
+                     rollDie=$((RANDOM%6+1))
+		     play
+                     echo "Player1 position :" $currentPosition
+                     if [ $currentPosition -eq $LASTPOSITION ]
+                     then
+                     	echo "player1 win"
+                     break
+                     	chanceForPlayer=2
+                     else
+                        rollDie=$((RANDOM%6+1))
+                        play
+			echo "Player2 position :" $currentPosition
+                        if [ $currentPosition -eq $LASTPOSITION ]
+                        then
+                             echo "player2 win"
+                        break
+                        fi
+                              chanceForPlayer=1
+                      fi
+                fi
 	done
 }
 start
-echo "You won the game"
+
 echo "The number of times die roll is:" $dieCount
