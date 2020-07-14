@@ -1,11 +1,11 @@
 
 echo "Welcome To Snake And Ladder Game"
-startPosition=0
+STARTPOSITION=0
 currentPosition=0
-lastPosition=100
-ladder=1
-snake=2
-noplay=3
+LASTPOSITION=100
+LADDER=1
+SNAKE=2
+NOPLAY=3
 
 function play()
 {
@@ -14,10 +14,10 @@ function play()
 
 	option=$((RANDOM%3+1))
 
-	if [[ $option -eq $ladder ]]
+	if [[ $option -eq $LADDER ]]
 	then
 		currentPosition=`expr $(($currentPosition + $rollDie ))`
-	elif [[ $option -eq $snake ]]
+	elif [[ $option -eq $SNAKE ]]
 	then
 		currentPosition=$(( $currentPosition-$rollDie ))
 	else
