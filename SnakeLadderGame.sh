@@ -1,17 +1,17 @@
 #!/bin/bash +x
 echo "Welcome To Snake And Ladder Game"
-startPosition=0
+STARTPOSITION=0
 currentPosition=0
-lastPosition=100
-ladder=1
-snake=2
-noplay=3
+LASTPOSITION=100
+LADDER=1
+SNAKE=2
+NOPLAY=3
 required=0
 
 function ladder()
 {
 
-	required=$(($lastPosition-$currentPosition))
+	required=$(($LASTPOSITION-$currentPosition))
 	echo "required number is:"$required
 	if [[ $required -ge $rollDie ]] 
 	then
@@ -22,13 +22,13 @@ function ladder()
 }
 function snake()
 {
-	if [[ $currentPosition -lt 0 ]]
+	if [[ $((currentPosition-$rollDie)) -le $STARTPOSITION ]]
         then
-               currentPosition=$startPosition
+               	currentPosition=$STARTPOSITION
 	else
         	currentPosition=`expr $(($currentPosition - $rollDie))`
-		echo "current position for snake is:"$currentPosition
 	fi
+
 }
 function noplay()
 {
@@ -39,13 +39,13 @@ function play()
 {
 	option=$((RANDOM%3+1))
 	case $option in
-		$ladder)
+		$LADDER)
 			ladder
 			;;
-		$snake)
+		$SNAKE)
 			snake
 			;;
-		$noplay)
+		$NOPLAY)
 			noplay
 	esac
 }
@@ -54,7 +54,7 @@ function play()
 
 function start()
 {
-	while [[ $currentPosition -lt $lastPosition ]]
+	while [[ $currentPosition -lt $LASTPOSITION ]]
 	do
 		rollDie=$((RANDOM%6+1))
         	echo "Die number is:" $rollDie
