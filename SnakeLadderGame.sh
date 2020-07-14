@@ -2,7 +2,7 @@
 echo "Welcome To Snake And Ladder Game"
 STARTPOSITION=0
 currentPosition=0
-LASTPOSITION=100
+LASTPOSITION=10
 LADDER=1
 SNAKE=2
 NOPLAY=3
