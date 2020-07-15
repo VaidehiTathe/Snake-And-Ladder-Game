@@ -18,7 +18,7 @@ function ladder()
 		then
 			  currentPosition=`expr $(($currentPosition + $rollDie))`
 		fi
-		echo "Current position for player $1 for ladder is:" $currentPosition
+		echo "Current position for player$i for ladder is:" $currentPosition
 		start
 }
 function snake()
@@ -27,17 +27,17 @@ function snake()
 		if [[ $((currentPosition-$rollDie)) -le $STARTPOSITION ]]
         	then
                		currentPosition=$currentPosition
-			echo "Current position for snake is $currentPosition"
+			echo "Current position for player$i snake is $currentPosition"
 		else
         		currentPosition=`expr $(($currentPosition - $rollDie))`
-			echo "Current position for snake is:" $currentPosition
+			echo "Current position for player$i snake is:" $currentPosition
 		fi
 	
 }
 function noPlay()
 {
 	currentPosition=$currentPosition
-	echo "Current position for no play is:"$currentPosition
+	echo "Current position for player$i no play is:"$currentPosition
 }
 function play()
 {
@@ -68,10 +68,11 @@ function start()
 			echo "player[$i] is playing"
                 	rollDie=$((RANDOM%6+1))
                 	echo "The die num is:" $rollDie
-			play i
+			play 
 		done
 	done
+#	echo "player$i won the game"
 }
 start
-echo "You won the game"
+echo " the player won the game"
 echo "The number of times die roll is:" $dieCount
