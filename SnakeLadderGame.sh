@@ -9,7 +9,8 @@ NOPLAY=3
 required=0
 dieCount=0
 playerPosition=0
-
+one=1
+two=2
 
 function ladder()
 {
@@ -60,7 +61,7 @@ function play()
 
 function win()
 {
-	echo "Player $i win the game and number of times die roll is $dieCount"
+	echo "Player $player win the game and number of times die roll is $dieCount"
 	exit
 }
 
@@ -72,15 +73,15 @@ function start()
 	do
 
 		((dieCount++))
-		for ((i=1; i<=2; i++))
+		for ((player=$one; player<=$two; player++))
 		do
                 	rollDie=$((RANDOM%6+1))
-			play $i
+			play 
 			playerPosition=$?
-			echo "Player $i position is:$playerPosition"
+			echo "Player $player position is:$playerPosition"
 			if [[ $playerPosition -eq $LASTPOSITION ]]
 			then
-				win $i $dieCount
+				win $player $dieCount
 			fi
 		done
 	done
