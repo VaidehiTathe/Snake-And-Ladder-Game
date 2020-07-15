@@ -2,43 +2,47 @@
 echo "Welcome To Snake And Ladder Game"
 STARTPOSITION=0
 currentPosition=0
-LASTPOSITION=5
+LASTPOSITION=15
 LADDER=1
 SNAKE=2
 NOPLAY=3
 required=0
 dieCount=0
-#chanceForPlayer=1
+playerPosition=0
+
+
 function ladder()
 {
-	
+
 		required=$(($LASTPOSITION-$currentPosition))
-		echo "required number to get position is:" $required
+
 		if [[ $required -ge $rollDie ]] 
 		then
 			  currentPosition=`expr $(($currentPosition + $rollDie))`
 		fi
-		echo "Current position for player$i for ladder is:" $currentPosition
+		return $currentPosition
 		start
 }
+
 function snake()
 {
 
 		if [[ $((currentPosition-$rollDie)) -le $STARTPOSITION ]]
         	then
                		currentPosition=$currentPosition
-			echo "Current position for player$i snake is $currentPosition"
 		else
         		currentPosition=`expr $(($currentPosition - $rollDie))`
-			echo "Current position for player$i snake is:" $currentPosition
 		fi
-	
+		return $currentPosition
+
 }
+
 function noPlay()
 {
 	currentPosition=$currentPosition
-	echo "Current position for player$i no play is:"$currentPosition
+	return $currentPosition
 }
+
 function play()
 {
 	option=$((RANDOM%3+1))
@@ -54,25 +58,31 @@ function play()
 	esac
 }
 
+function win()
+{
+	echo "Player $i win the game and number of times die roll is $dieCount"
+	exit
+}
 
 
 function start()
 {
 	
-	while [[ $currentPosition -lt $LASTPOSITION ]]
+	while [[ $playerPosition -lt $LASTPOSITION ]]
 	do
 
 		((dieCount++))
 		for ((i=1; i<=2; i++))
 		do
-			echo "player[$i] is playing"
                 	rollDie=$((RANDOM%6+1))
-                	echo "The die num is:" $rollDie
-			play 
+			play $i
+			playerPosition=$?
+			echo "Player $i position is:$playerPosition"
+			if [[ $playerPosition -eq $LASTPOSITION ]]
+			then
+				win $i $dieCount
+			fi
 		done
 	done
-#	echo "player$i won the game"
 }
 start
-echo " the player won the game"
-echo "The number of times die roll is:" $dieCount
