@@ -1,38 +1,52 @@
-
+#!/bin/bash +x
 echo "Welcome To Snake And Ladder Game"
-startPosition=0
+STARTPOSITION=0
 currentPosition=0
-lastPosition=100
-ladder=1
-snake=2
-noplay=3
+LASTPOSITION=10
+LADDER=1
+SNAKE=2
+NOPLAY=3
+required=0
+
+function ladder()
+{
+	currentPosition=`expr $(($currentPosition + $rollDie))`
+}
+
+function snake()
+{
+	if [[ $(($currentPosition-$rollDie)) -le $STARTPOSITION ]]
+        then
+               	currentPosition=$STARTPOSITION
+	else
+        	currentPosition=`expr $(($currentPosition - $rollDie))`
+	fi
+}
+
+function noPlay()
+{
+	currentPosition=$currentPosition
+}
 
 function play()
 {
-	rollDie=$((RANDOM%6+1))
-	echo "Die number is:" $rollDie
-
 	option=$((RANDOM%3+1))
-
-	if [[ $option -eq $ladder ]]
-	then
-		currentPosition=`expr $(($currentPosition + $rollDie ))`
-	elif [[ $option -eq $snake ]]
-	then
-		currentPosition=$(( $currentPosition-$rollDie ))
-	elif [[ $currentPosition -lt 0 ]]
-	then
-		currentPosition=$startPosition
-	else
-		currentPosition=$currentPosition
-		#exit
-	fi
-echo "current position is:"$currentPosition
-
+	case $option in
+		$LADDER)
+			ladder
+			;;
+		$SNAKE)
+			snake
+			;;
+		$NOPLAY)
+			noPlay
+	esac
 }
 
-while [[ $currentPosition -le $lastPosition ]]
+while [[ $currentPosition -le $LASTPOSITION ]]
 do
+	rollDie=$((RANDOM%6+1))
         play
+	echo "Current position of player is $currentPosition"
 done
 
