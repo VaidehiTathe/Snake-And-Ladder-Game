@@ -2,15 +2,15 @@
 echo "Welcome To Snake And Ladder Game"
 STARTPOSITION=0
 currentPosition=0
-LASTPOSITION=30
+LASTPOSITION=100
 LADDER=1
 SNAKE=2
 NOPLAY=3
 required=0
 dieCount=0
 playerPosition=0
-one=1
-two=2
+ONE=1
+TWO=2
 
 function ladder()
 {
@@ -70,7 +70,7 @@ function start()
 	do
 
 		((dieCount++))
-		for ((player=$one; player<=$two; player++))
+		for ((player=$ONE; player<=$TWO; player++))
 		do
                 	rollDie=$((RANDOM%6+1))
 			play 
