@@ -17,7 +17,7 @@ function snake()
 {
 	if [[ $(($currentPosition-$rollDie)) -le $STARTPOSITION ]]
         then
-               	currentPosition=$STARTPOSITION
+               	currentPosition=$currentPosition
 	else
         	currentPosition=`expr $(($currentPosition - $rollDie))`
 	fi
