@@ -2,7 +2,7 @@
 echo "Welcome To Snake And Ladder Game"
 STARTPOSITION=0
 currentPosition=0
-LASTPOSITION=15
+LASTPOSITION=30
 LADDER=1
 SNAKE=2
 NOPLAY=3
@@ -14,27 +14,25 @@ two=2
 
 function ladder()
 {
+	required=$(($LASTPOSITION-$currentPosition))
 
-		required=$(($LASTPOSITION-$currentPosition))
-
-		if [[ $required -ge $rollDie ]] 
-		then
-			  currentPosition=`expr $(($currentPosition + $rollDie))`
-		fi
-		return $currentPosition
-		start
+	if [[ $required -ge $rollDie ]] 
+	then
+		currentPosition=`expr $(($currentPosition + $rollDie))`
+	fi
+	return $currentPosition
+	start
 }
 
 function snake()
 {
-
-		if [[ $((currentPosition-$rollDie)) -le $STARTPOSITION ]]
-        	then
-               		currentPosition=$currentPosition
-		else
-        		currentPosition=`expr $(($currentPosition - $rollDie))`
-		fi
-		return $currentPosition
+	if [[ $((currentPosition-$rollDie)) -le $STARTPOSITION ]]
+        then
+               	currentPosition=$currentPosition
+	else
+        	currentPosition=`expr $(($currentPosition - $rollDie))`
+	fi
+	return $currentPosition
 
 }
 
@@ -68,7 +66,6 @@ function win()
 
 function start()
 {
-	
 	while [[ $playerPosition -lt $LASTPOSITION ]]
 	do
 
